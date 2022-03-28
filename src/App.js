@@ -44,44 +44,44 @@ const App = () => {
   const teeeest = () => {
 
       //Si el valor que recibe es true entonces enviamos el correo
-      navigator.geolocation.getCurrentPosition(function (position) {
-        console.log("Latitude is :", position.coords.latitude);
+      // navigator.geolocation.getCurrentPosition(function (position) {
+      //   console.log("Latitude is :", position.coords.latitude);
 
-        alert("LAT: "+position.coords.latitude);
+      //   alert("LAT: "+position.coords.latitude);
 
-        console.log("Longitude is :", position.coords.longitude);
-      })
+      //   console.log("Longitude is :", position.coords.longitude);
+      // })
   }
 
   const btnDistance = () =>{
 
-    navigator.geolocation.getCurrentPosition(function(error){
-      // El segundo parámetro es la función de error
-          switch(error.code) {
-              case error.PERMISSION_DENIED:
-                  // El usuario denegó el permiso para la Geolocalización.
-                  break;
-              case error.POSITION_UNAVAILABLE:
-                  // La ubicación no está disponible.
-                  break;
-              case error.TIMEOUT:
-                  // Se ha excedido el tiempo para obtener la ubicación.
-                  break;
-              case error.UNKNOWN_ERROR:
-                  // Un error desconocido.
-                  break;
-          }
-    })
+    // navigator.geolocation.getCurrentPosition(function(error){
+    //   // El segundo parámetro es la función de error
+    //       switch(error.code) {
+    //           case error.PERMISSION_DENIED:
+    //               // El usuario denegó el permiso para la Geolocalización.
+    //               break;
+    //           case error.POSITION_UNAVAILABLE:
+    //               // La ubicación no está disponible.
+    //               break;
+    //           case error.TIMEOUT:
+    //               // Se ha excedido el tiempo para obtener la ubicación.
+    //               break;
+    //           case error.UNKNOWN_ERROR:
+    //               // Un error desconocido.
+    //               break;
+    //       }
+    //})
 
-    navigator.geolocation.getCurrentPosition((position)  => {
+    // navigator.geolocation.getCurrentPosition((position)  => {
 
-      console.log("Latitude is :", position.coords.latitude);
-      console.log("Longitude is :", position.coords.longitude);
+    //   console.log("Latitude is :", position.coords.latitude);
+    //   console.log("Longitude is :", position.coords.longitude);
 
-      //esquina de san francisco. Será punto A: -33.44850105580589, -70.6469909007749
+    //   //esquina de san francisco. Será punto A: -33.44850105580589, -70.6469909007749
 
-      distance(-33.44850105580589, -70.6469909007749, position.coords.latitude, position.coords.longitude, "K");
-    })
+    //   distance(-33.44850105580589, -70.6469909007749, position.coords.latitude, position.coords.longitude, "K");
+    // })
   }
   
   return (
