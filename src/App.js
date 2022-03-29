@@ -41,14 +41,15 @@ const App = () => {
 
   const teeeest = () => {
 
+      console.log("test!");
       //Si el valor que recibe es true entonces enviamos el correo
-      navigator.geolocation.getCurrentPosition(function (position) {
-        console.log("Latitude is :", position.coords.latitude);
+      // navigator.geolocation.getCurrentPosition(function (position) {
+      //   console.log("Latitude is :", position.coords.latitude);
 
-        alert("LAT: "+position.coords.latitude);
+      //   alert("LAT: "+position.coords.latitude);
 
-        console.log("Longitude is :", position.coords.longitude);
-      })
+      //   console.log("Longitude is :", position.coords.longitude);
+      // })
   }
 
   const btnDistance = () =>{
