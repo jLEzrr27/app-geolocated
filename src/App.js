@@ -5,6 +5,8 @@ const App = () => {
 
   const [Dist, setDist] = useState(null);
 
+  console.log("App!");
+
   useEffect(() => {
   
     teeeest();
