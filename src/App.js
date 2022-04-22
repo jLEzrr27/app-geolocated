@@ -3,13 +3,10 @@ import React, { useEffect, useState } from 'react';
 
 const App = () => {
 
-  const [Dist, setDist] = useState(null);
-
-  console.log("App!");
+  const [coordEmployee, setCoordEmployee] = useState(null);
+  const [coordSupervisor, setCoordSupervisor] = useState(null);
 
   useEffect(() => {
-  
-    teeeest();
 
   }, []);
 
@@ -36,122 +33,48 @@ const App = () => {
 
     console.log(`dist: ${dist}`);
 
-    setDist(dist);
-
     return dist
   }
 
-  const teeeest = () => {
+  const setCoordinates = (p) =>{
 
-      console.log("test!");
-      //Si el valor que recibe es true entonces enviamos el correo
-      navigator.geolocation.getCurrentPosition(function (position) {
-        console.log("Latitude is :", position.coords.latitude);
+    navigator.geolocation.getCurrentPosition(function(position){
 
-        alert("LAT: "+position.coords.latitude);
+      if(p === 'work zone')
+      setCoordSupervisor({lat1: position.coords.latitude, lon1: position.coords.longitude});
+      else if(p === 'employee')
+      setCoordEmployee({lat2: position.coords.latitude, lon2: position.coords.longitude});
 
-        console.log("Longitude is :", position.coords.longitude);
-      })
+      return alert(`Coordinates assigned successfull! - LAT: ${position.coords.latitude} LONG: ${position.coords.longitude}`);
+    })
   }
 
-  const btnDistance = () =>{
+  const getDistance = (p) => {
 
-    // navigator.geolocation.getCurrentPosition(function(error){
-    //   // El segundo parámetro es la función de error
-    //       switch(error.code) {
-    //           case error.PERMISSION_DENIED:
-    //               // El usuario denegó el permiso para la Geolocalización.
-    //               break;
-    //           case error.POSITION_UNAVAILABLE:
-    //               // La ubicación no está disponible.
-    //               break;
-    //           case error.TIMEOUT:
-    //               // Se ha excedido el tiempo para obtener la ubicación.
-    //               break;
-    //           case error.UNKNOWN_ERROR:
-    //               // Un error desconocido.
-    //               break;
-    //       }
-    //})
+    const {lat1, lon1} = coordSupervisor;
+    const {lat2, lon2} = coordEmployee;
 
-    // navigator.geolocation.getCurrentPosition((position)  => {
+    const dist = distance(lat1, lon1, lat2, lon2, "K");
 
-    //   console.log("Latitude is :", position.coords.latitude);
-    //   console.log("Longitude is :", position.coords.longitude);
-
-    //   //esquina de san francisco. Será punto A: -33.44850105580589, -70.6469909007749
-
-    //   distance(-33.44850105580589, -70.6469909007749, position.coords.latitude, position.coords.longitude, "K");
-    // })
+    if(p === 'get'){
+      alert(`Distance between the work zone and the employee is ${dist}m`);
+    }
+    else if(p === 'validate'){
+      dist > 40 ? alert(`The employee is too far away from the work zone (${dist}m)`) : alert(`You are within range to clock (${dist}m)!`)
+    }
   }
+  
   
   return (
           <div className="App">
             <header className="App-header">
-              <button onClick={() => { btnDistance() } }>Validate distance {Dist}</button>
+              <button onClick={() => { setCoordinates('work zone') } }>Set point coordinates (work zone)</button><br/><br/>
+              <button onClick={() => { setCoordinates('employee') } }>Set point coordinates (employee)</button><br/><br/>
+              <button onClick={() => { getDistance('get') } }>Get distance </button><br/><br/>
+              <button onClick={() => { getDistance('validate') } }>Validate distance </button>
             </header>
           </div>
           )
-
-  /*
-  render() {
-      return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            {
-              !this.props.isGeolocationAvailable ? (
-                <div>Your browser does not support Geolocation</div>
-              ) : !this.props.isGeolocationEnabled ? (
-                  <div>Geolocation is not enabled</div>
-              ) : this.props.coords ? (
-
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>latitude</td>
-                            <td>{this.props.coords.latitude}</td>
-                        </tr>
-                        <tr>
-                            <td>longitude</td>
-                            <td>{this.props.coords.longitude}</td>
-                        </tr>
-                        <tr>
-                            <td>altitude</td>
-                            <td>{this.props.coords.altitude}</td>
-                        </tr>
-                        <tr>
-                            <td>heading</td>
-                            <td>{this.props.coords.heading}</td>
-                        </tr>
-                        <tr>
-                            <td>speed</td>
-                            <td>{this.props.coords.speed}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-              ) : (
-                <div>Getting the location data&hellip; </div>
-              )
-            }
-          </p>
-        </header>
-      </div>
-    )
-  }
-}*/
-
-/*
-export default geolocated({
-    positionOptions: {
-        enableHighAccuracy: false,
-    },
-    userDecisionTimeout: 5000,
-})(App);
-*/
-
 }
 
 export default App;
